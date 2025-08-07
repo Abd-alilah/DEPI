@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             label1 = new Label();
             txtName = new TextBox();
             label2 = new Label();
@@ -35,7 +36,7 @@
             rbFemale = new RadioButton();
             rbMale = new RadioButton();
             label3 = new Label();
-            cmbStatus = new ComboBox();
+            cbStatus = new ComboBox();
             groupBox2 = new GroupBox();
             chkBodybuilding = new CheckBox();
             chkSwimming = new CheckBox();
@@ -56,6 +57,10 @@
             dtpBirthDate = new DateTimePicker();
             numEnglish = new NumericUpDown();
             numArabic = new NumericUpDown();
+            printDocument1 = new System.Drawing.Printing.PrintDocument();
+            printDialog1 = new PrintDialog();
+            printPreviewDialog1 = new PrintPreviewDialog();
+            pageSetupDialog1 = new PageSetupDialog();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -116,6 +121,7 @@
             // rbMale
             // 
             rbMale.AutoSize = true;
+            rbMale.Checked = true;
             rbMale.Location = new Point(28, 26);
             rbMale.Name = "rbMale";
             rbMale.Size = new Size(63, 24);
@@ -135,15 +141,16 @@
             label3.Text = "Mstatus :";
             label3.Click += label3_Click;
             // 
-            // cmbStatus
+            // cbStatus
             // 
-            cmbStatus.FormattingEnabled = true;
-            cmbStatus.Items.AddRange(new object[] { "متزوج", "اعزب", "ارمل", "مطلق" });
-            cmbStatus.Location = new Point(129, 189);
-            cmbStatus.Name = "cmbStatus";
-            cmbStatus.Size = new Size(192, 28);
-            cmbStatus.TabIndex = 4;
-            cmbStatus.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            cbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbStatus.FormattingEnabled = true;
+            cbStatus.Items.AddRange(new object[] { "متزوج", "اعزب", "ارمل", "مطلق" });
+            cbStatus.Location = new Point(129, 189);
+            cbStatus.Name = "cbStatus";
+            cbStatus.Size = new Size(192, 28);
+            cbStatus.TabIndex = 4;
+            cbStatus.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // groupBox2
             // 
@@ -241,9 +248,10 @@
             // 
             // btnshow
             // 
-            btnshow.Location = new Point(129, 481);
+            btnshow.ImageAlign = ContentAlignment.TopCenter;
+            btnshow.Location = new Point(131, 475);
             btnshow.Name = "btnshow";
-            btnshow.Size = new Size(160, 29);
+            btnshow.Size = new Size(160, 49);
             btnshow.TabIndex = 12;
             btnshow.Text = "Show Result";
             btnshow.UseVisualStyleBackColor = true;
@@ -290,6 +298,7 @@
             btnprint.TabIndex = 16;
             btnprint.Text = "Print";
             btnprint.UseVisualStyleBackColor = true;
+            btnprint.Click += btnprint_Click;
             // 
             // rtbReport
             // 
@@ -341,13 +350,37 @@
             numArabic.TabIndex = 18;
             numArabic.ValueChanged += numericUpDown2_ValueChanged;
             // 
+            // printDocument1
+            // 
+            printDocument1.PrintPage += printDocument1_PrintPage;
+            // 
+            // printDialog1
+            // 
+            printDialog1.UseEXDialog = true;
+            printDialog1.HelpRequest += printDialog1_HelpRequest;
+            // 
+            // printPreviewDialog1
+            // 
+            printPreviewDialog1.AutoScrollMargin = new Size(0, 0);
+            printPreviewDialog1.AutoScrollMinSize = new Size(0, 0);
+            printPreviewDialog1.ClientSize = new Size(400, 300);
+            printPreviewDialog1.Enabled = true;
+            printPreviewDialog1.Icon = (Icon)resources.GetObject("printPreviewDialog1.Icon");
+            printPreviewDialog1.Name = "printPreviewDialog1";
+            printPreviewDialog1.Visible = false;
+            printPreviewDialog1.Load += printPreviewDialog1_Load;
+            // 
+            // pageSetupDialog1
+            // 
+            pageSetupDialog1.HelpRequest += pageSetupDialog1_HelpRequest;
+            // 
             // Form1
             // 
             AcceptButton = btnshow;
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(192, 192, 255);
-            ClientSize = new Size(966, 554);
+            ClientSize = new Size(982, 553);
             Controls.Add(numArabic);
             Controls.Add(numEnglish);
             Controls.Add(dtpBirthDate);
@@ -360,7 +393,7 @@
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(groupBox2);
-            Controls.Add(cmbStatus);
+            Controls.Add(cbStatus);
             Controls.Add(label3);
             Controls.Add(groupBox1);
             Controls.Add(label2);
@@ -370,6 +403,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "Form1";
+            SizeGripStyle = SizeGripStyle.Hide;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Application";
             WindowState = FormWindowState.Maximized;
@@ -394,7 +428,7 @@
         private RadioButton rbFemale;
         private RadioButton rbMale;
         private Label label3;
-        private ComboBox cmbStatus;
+        private ComboBox cbStatus;
         private GroupBox groupBox2;
         private CheckBox chkBodybuilding;
         private CheckBox chkSwimming;
@@ -415,5 +449,9 @@
         private DateTimePicker dtpBirthDate;
         private NumericUpDown numEnglish;
         private NumericUpDown numArabic;
+        private System.Drawing.Printing.PrintDocument printDocument1;
+        private PrintDialog printDialog1;
+        private PrintPreviewDialog printPreviewDialog1;
+        private PageSetupDialog pageSetupDialog1;
     }
 }

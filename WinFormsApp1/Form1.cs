@@ -4,6 +4,14 @@ namespace WinFormsApp1
 {
     public partial class Form1 : Form
     {
+        string name;
+        string birthDate;
+        string gender;
+        string status;
+        int en;
+        int ar;
+        string report;
+        List<string> hobbies = new List<string>();
         public Form1()
         {
             InitializeComponent();
@@ -66,14 +74,12 @@ namespace WinFormsApp1
 
         private void progressBar1_Click(object sender, EventArgs e)
         {
-            progressEnglish.Value = (int)numEnglish.Value;
         }
 
         private void progressBar2_Click(object sender, EventArgs e)
         {
-            progressArabic.Value = (int)numArabic.Value;
         }
-        }
+
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -92,59 +98,97 @@ namespace WinFormsApp1
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+         
+            pageSetupDialog1.Document = printDocument1;
+            pageSetupDialog1.ShowDialog();
         }
+
+        
 
         private void button3_Click(object sender, EventArgs e)
         {
+            
+            printPreviewDialog1.Document = printDocument1;
+            printPreviewDialog1.ShowDialog();
 
         }
 
         private void label6_Click(object sender, EventArgs e)
         {
-
+             
         }
+
+        
 
         private void numericUpDown2_ValueChanged(object sender, EventArgs e)
         {
+            progressArabic.Value = (int)numArabic.Value;
 
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
+            progressEnglish.Value = (int)numEnglish.Value;
 
         }
 
         private void btnshow_Click(object sender, EventArgs e)
         {
-        
-            string name = txtName.Text;
-            string birthDate = dtpBirthDate.Value.ToString("dd/MM/yyyy hh:mm:ss tt", new System.Globalization.CultureInfo("ar-EG"));
-            string gender = rbMale.Checked ? "Male" : "Female";
-            string status = cmbStatus.SelectedItem.ToString();
+            name = txtName.Text;
+            birthDate = dtpBirthDate.Value.ToShortDateString();
+            gender = rbMale.Checked ? "Male" : "Female";
+            status = cbStatus.Text;
 
-            List<string> hobbies = new List<string>();
+
+
             if (chkFootball.Checked) hobbies.Add("football");
             if (chkWatchTV.Checked) hobbies.Add("watch tv");
             if (chkSwimming.Checked) hobbies.Add("swimming");
             if (chkBodybuilding.Checked) hobbies.Add("bodybuilding");
 
-            int english = (int)numEnglish.Value;
-            int arabic = (int)numArabic.Value;
+            en = (int)numEnglish.Value;
+            ar = (int)numArabic.Value;
 
-            string report = "------------- Your Information -------------\r\n";
+            report = "------------------ Your Information ------------------\n";
             report += $"Name : {name}\r\n";
-            report += $"date of birth : {birthDate}\r\n\r\n";
-            report += $"Gender : {gender}\r\n";
-            report += $"M Status : {status}\r\n";
-            report += $"habites : {string.Join(" , ", hobbies)}\r\n";
-            report += $"English language : {english}\r\n";
-            report += $"Arabic lanuage : {arabic}\r\n";
+            report += $"date of birth : {birthDate}\n";
+            report += $"Gender : {gender}\n";
+            report += $"M Status : {status}\n";
+            report += $"habites : {string.Join(" , ", hobbies)}\n";
+            report += $"English language : {en}%\n";
+            report += $"Arabic lanuage : {ar}%\n";
             report += "------------------------ END ------------------------";
 
             rtbReport.Text = report;
+            hobbies.Clear();
         }
 
+        private void btnprint_Click(object sender, EventArgs e)
+        {
+            printDialog1.Document = printDocument1;
+            printDocument1.Print();
+            
+        }
+
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            e.Graphics.DrawString(rtbReport.Text, new Font ("Tahoma", 16), Brushes.Blue, new Point(100, 100));
+        }
+
+        private void printDialog1_HelpRequest(object sender, EventArgs e)
+        {
+
+        }
+
+        private void printPreviewDialog1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pageSetupDialog1_HelpRequest(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
